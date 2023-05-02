@@ -1,11 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Admin on 5/2/2023
@@ -14,11 +12,12 @@ import java.util.List;
  * @date : 5/2/2023
  * @project : demo
  */
-@Data
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
+@Table(name = "cities")
+public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,9 +25,6 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "code")
-    private CountryCode code;
-
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<City> cities;
+    @Column(name = "people_count")
+    private String peopleCount;
 }

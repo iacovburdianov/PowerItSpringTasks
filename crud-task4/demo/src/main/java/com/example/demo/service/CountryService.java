@@ -25,7 +25,7 @@ public class CountryService {
     }
 
     public List<Country> getAllCountries() {
-        return countryRepository.findAll();
+        return (List<Country>) countryRepository.findAll();
     }
 
     public Optional<Country> getCountryById(Long id) {
