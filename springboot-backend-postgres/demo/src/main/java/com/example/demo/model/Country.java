@@ -30,6 +30,6 @@ public class Country {
     @Column(name = "code")
     private CountryCode code;
 
-    @OneToMany(mappedBy = "countries", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<City> cities;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.City;
 import com.example.demo.model.Country;
 import com.example.demo.service.CountryService;
@@ -25,52 +26,41 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Country> getCountryById(@PathVariable Long id) {
-        Country country = countryService.getCountryById(id);
-        return ResponseEntity.ok(country);
+    @GetMapping
+    public List<Country> getAllCountries() {
+        return countryService.getAllCountries();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Country>> getAllCountries() {
-        List<Country> countries = countryService.getAllCountries();
-        return ResponseEntity.ok(countries);
+    @GetMapping("/{id}")
+    public Country getCountryById(@PathVariable Long id) {
+        return countryService.getCountryById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Country createCountry(@RequestBody Country country) {
+        return countryService.saveCountry(country);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody Country country) {
-        Country updatedCountry = countryService.updateCountry(id, country);
-        return ResponseEntity.ok(updatedCountry);
+    public Country updateCountry(@PathVariable Long id, @RequestBody Country country) {
+        Country existingCountry = countryService.getCountryById(id);
+
+        if (existingCountry == null) {
+            throw new ResourceNotFoundException("Country not found with id: " + id);
+        }
+
+        existingCountry.setName(country.getName());
+        existingCountry.setCode(country.getCode());
+        existingCountry.setCities(country.getCities());
+
+        return countryService.saveCountry(existingCountry);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCountry(@PathVariable Long id) {
-        countryService.deleteCountry(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCountryById(@PathVariable Long id) {
+        countryService.deleteCountryById(id);
     }
-
-    @PostMapping("/{countryId}/cities/{cityId}")
-    public ResponseEntity<Void> addCityToCountry(@PathVariable Long countryId, @PathVariable Long cityId) {
-        countryService.addCityToCountry(countryId, cityId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @GetMapping("/{countryId}/city")
-    public ResponseEntity<City> getCityForCountry(@PathVariable Long countryId) {
-        City city = countryService.getCityForCountry(countryId);
-        return ResponseEntity.ok(city);
-    }
-
-    @PutMapping("/{countryId}/city/{cityId}")
-    public ResponseEntity<Void> updateCityForCountry(@PathVariable Long countryId, @PathVariable Long cityId) {
-        countryService.updateCityForCountry(countryId, cityId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{countryId}/city")
-    public ResponseEntity<Void> removeCityFromCountry(@PathVariable Long countryId) {
-        countryService.removeCityFromCountry(countryId);
-        return ResponseEntity.noContent().build();
-    }
-
 }
+

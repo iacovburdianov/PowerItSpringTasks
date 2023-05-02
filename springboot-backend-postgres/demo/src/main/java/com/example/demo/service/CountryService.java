@@ -20,84 +20,26 @@ import java.util.List;
 @Service
 @Transactional
 public class CountryService {
-    private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
 
-    public CountryService(CityRepository cityRepository, CountryRepository countryRepository) {
-        this.cityRepository = cityRepository;
+    public CountryService(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }
 
-
-    public Country getCountryById(Long id) {
-        return countryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Country not found with id: " + id));
+    public Country saveCountry(Country country) {
+        return countryRepository.save(country);
     }
 
     public List<Country> getAllCountries() {
         return countryRepository.findAll();
     }
 
-    public Country updateCountry(Long id, Country country) {
-        Country existingCountry = countryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Country not found with id: " + id));
-
-        existingCountry.setName(country.getName());
-        existingCountry.setCode(country.getCode());
-        existingCountry.setCity(country.getCity());
-
-        return countryRepository.save(existingCountry);
+    public Country getCountryById(Long id) {
+        return countryRepository.findById(id).orElse(null);
     }
 
-    public void deleteCountry(Long id) {
+    public void deleteCountryById(Long id) {
         countryRepository.deleteById(id);
     }
-
-    //CRUD operations for city column
-    // Create operation
-    public void addCityToCountry(Long countryId, Long cityId) {
-        // Retrieve the Country and City objects
-        Country country = countryRepository.findById(countryId).orElseThrow(() -> new EntityNotFoundException("Country not found with id " + countryId));
-        City city = cityRepository.findById(cityId).orElseThrow(() -> new EntityNotFoundException("City not found with id " + cityId));
-
-        // Associate the City with the Country
-        country.setCity(city);
-
-        // Save the changes to the Country
-        countryRepository.save(country);
-    }
-
-    // Read operation
-    public City getCityForCountry(Long countryId) {
-        // Retrieve the Country object
-        Country country = countryRepository.findById(countryId).orElseThrow(() -> new EntityNotFoundException("Country not found with id " + countryId));
-
-        // Return the associated City object
-        return country.getCity();
-    }
-
-    // Update operation
-    public void updateCityForCountry(Long countryId, Long cityId) {
-        // Retrieve the Country and City objects
-        Country country = countryRepository.findById(countryId).orElseThrow(() -> new EntityNotFoundException("Country not found with id " + countryId));
-        City city = cityRepository.findById(cityId).orElseThrow(() -> new EntityNotFoundException("City not found with id " + cityId));
-
-        // Associate the City with the Country
-        country.setCity(city);
-
-        // Save the changes to the Country
-        countryRepository.save(country);
-    }
-
-    // Delete operation
-    public void removeCityFromCountry(Long countryId) {
-        // Retrieve the Country object
-        Country country = countryRepository.findById(countryId).orElseThrow(() -> new EntityNotFoundException("Country not found with id " + countryId));
-
-        // Remove the association with the City
-        country.setCity(null);
-
-        // Save the changes to the Country
-        countryRepository.save(country);
-    }
 }
+
