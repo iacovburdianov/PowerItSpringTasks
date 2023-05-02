@@ -27,4 +27,8 @@ public class City {
 
     @Column(name = "people_count")
     private String peopleCount;
+
+    @ManyToOne
+    @JoinColumn(name = "countries_id", referencedColumnName = "id")
+    private Country country;
 }
