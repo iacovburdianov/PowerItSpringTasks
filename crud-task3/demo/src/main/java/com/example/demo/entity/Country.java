@@ -1,19 +1,20 @@
-package com.example.demo.repository;
+package com.example.demo.entity;
 
 
 import jakarta.persistence.*;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+
 
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Table(name = "contries")
 public class Country {
 
     @Id
@@ -23,8 +24,9 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    @Pattern(regexp = "^(MD|PL|PT)$", message = "Code must be MD, PL, or PT")
-    private String code;
+    @Column(name = "code")
+    private CountryCode code;
+
 }
 
 

@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.repository.Country;
+import com.example.demo.entity.Country;
 import com.example.demo.repository.CountryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,22 +1,26 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.City;
-import com.example.demo.service.CityService;
 
+import com.example.demo.service.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.util.Optional;
+
 /**
- * Created by Admin on 5/1/2023
+ * Created by Admin on 5/2/2023
  *
  * @author : Admin
- * @date : 5/1/2023
+ * @date : 5/2/2023
  * @project : demo
  */
 @RestController
 @RequestMapping("/cities")
 public class CityController {
+
 
     private final CityService cityService;
 
@@ -24,31 +28,34 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    // Create operation
-    @PostMapping("")
-    public ResponseEntity<City> createCity(@RequestBody City city) {
-        City createdCity = cityService.createCity(city);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCity);
-    }
-
-    // Read operation
     @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable Long id) {
-        City city = cityService.getCityById(id);
-        return ResponseEntity.ok(city);
+        Optional<City> city = cityService.getCityById(id);
+        return city.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Update operation
+    @PostMapping
+    public ResponseEntity<City> createCity(@RequestBody City city) {
+        City createdCity = cityService.createCity(city);
+        return ResponseEntity.created(URI.create("/cities/" + createdCity.getId())).body(createdCity);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody City city) {
         City updatedCity = cityService.updateCity(id, city);
+        if (updatedCity == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(updatedCity);
     }
 
-    // Delete operation
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCity(@PathVariable Long id) {
-        cityService.deleteCity(id);
-        return ResponseEntity.noContent().build();
+        if (cityService.deleteCity(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
+

@@ -1,19 +1,20 @@
-package com.example.demo.repository;
+package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 /**
- * Created by Admin on 5/1/2023
+ * Created by Admin on 5/2/2023
  *
  * @author : Admin
- * @date : 5/1/2023
+ * @date : 5/2/2023
  * @project : demo
  */
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class City {
@@ -21,14 +22,11 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "people_count")
     private int peopleCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 }
-

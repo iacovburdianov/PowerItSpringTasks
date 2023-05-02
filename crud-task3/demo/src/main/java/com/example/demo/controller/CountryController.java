@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.Country;
+import com.example.demo.entity.Country;
 import com.example.demo.service.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
