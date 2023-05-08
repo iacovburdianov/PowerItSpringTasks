@@ -27,7 +27,7 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "code")
+    @Enumerated(EnumType.STRING)
     private CountryCode code;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
