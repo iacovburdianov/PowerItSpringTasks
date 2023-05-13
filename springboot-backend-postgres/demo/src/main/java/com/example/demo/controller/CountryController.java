@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.City;
-import com.example.demo.model.Country;
+import com.example.demo.model.entities.Country;
 import com.example.demo.service.CountryService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

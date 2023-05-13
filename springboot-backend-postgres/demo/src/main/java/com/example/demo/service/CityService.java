@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.City;
+import com.example.demo.model.entities.City;
 import com.example.demo.repository.CityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
