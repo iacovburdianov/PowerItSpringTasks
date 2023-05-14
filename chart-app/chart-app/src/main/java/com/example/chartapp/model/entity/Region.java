@@ -2,15 +2,11 @@ package com.example.chartapp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Data
-@Getter
-@Setter
 @Table(name = "regions")
 public class Region {
     @Id
@@ -19,8 +15,8 @@ public class Region {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
+    @ManyToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

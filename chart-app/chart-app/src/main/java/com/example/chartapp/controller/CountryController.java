@@ -13,7 +13,7 @@ import java.util.List;
 public class CountryController {
     private final CountryService countryService;
 
-    @PostMapping("/")
+    @PostMapping
     public Country saveCountry(@RequestBody Country country) {
         return countryService.saveCountry(country);
     }
@@ -23,7 +23,7 @@ public class CountryController {
         return countryService.findCountryById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Country> getAllCountries() {
         return countryService.getAllCountries();
     }

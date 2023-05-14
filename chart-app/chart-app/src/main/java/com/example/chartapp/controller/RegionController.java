@@ -1,5 +1,6 @@
 package com.example.chartapp.controller;
 
+import com.example.chartapp.model.dto.CreateRegionDto;
 import com.example.chartapp.model.entity.Region;
 import com.example.chartapp.service.RegionService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,9 @@ import java.util.List;
 public class RegionController {
     private final RegionService regionService;
 
-    @PostMapping("/")
-    public Region saveRegion(@RequestBody Region region){
-        return regionService.saveRegion(region);
+    @PostMapping
+    public Region saveRegion(@RequestBody CreateRegionDto dto){
+        return regionService.saveRegion(dto);
     }
 
     @GetMapping("/{id}")
@@ -23,7 +24,7 @@ public class RegionController {
         return regionService.findRegionById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Region> getAllRegions() {
         return regionService.getAllRegions();
     }

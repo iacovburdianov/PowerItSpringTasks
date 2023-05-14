@@ -2,15 +2,11 @@ package com.example.chartapp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Data
-@Getter
-@Setter
 @Table(name = "countries")
 public class Country {
     @Id
@@ -18,9 +14,9 @@ public class Country {
     private Long id;
 
     private String name;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private CountryCode code;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Region> regions;
 }

@@ -1,5 +1,6 @@
 package com.example.chartapp.controller;
 
+import com.example.chartapp.model.dto.CreateCityDto;
 import com.example.chartapp.model.entity.City;
 import com.example.chartapp.service.CityService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,9 @@ import java.util.List;
 public class CityController {
     private final CityService cityService;
 
-    @PostMapping("/")
-    public City saveCity(@RequestBody City city) {
-        return cityService.saveCity(city);
+    @PostMapping
+    public City saveCity(@RequestBody CreateCityDto dto) {
+        return cityService.saveCity(dto);
     }
 
     @GetMapping("/{id}")
@@ -23,7 +24,7 @@ public class CityController {
         return cityService.findCityById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<City> getAllCities() {
         return cityService.getAllCities();
     }
