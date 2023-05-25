@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Entity
-@Data
 @Getter
 @Setter
 @Table(name = "countries")
@@ -24,13 +24,5 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Region> regions;
 
-    @Override
-    public String toString() {
-        return "Country{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code=" + code +
-                ", regions=" + regions +
-                '}';
-    }
+
 }

@@ -6,7 +6,6 @@ import com.example.chartapp.entity.Region;
 import com.example.chartapp.repository.CityRepository;
 import com.example.chartapp.repository.RegionRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,10 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+
 public class CityService {
     private final CityRepository cityRepository;
     private final RegionRepository regionRepository;
+
+    public CityService(CityRepository cityRepository, RegionRepository regionRepository) {
+        this.cityRepository = cityRepository;
+        this.regionRepository = regionRepository;
+    }
 
     //Create/Save a new City:
     public City saveCity(CreateCityDto dto) {

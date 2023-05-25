@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
 @Table(name = "regions")
@@ -26,13 +25,4 @@ public class Region {
     @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
     private List<City> cities;
 
-    @Override
-    public String toString() {
-        return "Region{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country=" + country +
-                ", cities=" + cities +
-                '}';
-    }
 }
