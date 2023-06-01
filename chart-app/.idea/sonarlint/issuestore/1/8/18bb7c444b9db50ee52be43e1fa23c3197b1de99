@@ -1,0 +1,13 @@
+
+k
+java:S11922"PDefine a constant instead of duplicating this literal "/countries/{id}" 3 times.(ƒ¬ıîúÿÿÿÿ
+b
+java:S1192("MDefine a constant instead of duplicating this literal "/cities/{id}" 3 times.(‰÷š
+_
+java:S1192("JDefine a constant instead of duplicating this literal "ROLE_USER" 3 times.(‰÷š
+c
+java:S1192<"NDefine a constant instead of duplicating this literal "/regions/{id}" 3 times.(Šı6
+g
+java:S1192'"LDefine a constant instead of duplicating this literal "ROLE_ADMIN" 12 times.(³±‹ûÿÿÿÿÿ
+T
+java:S1874&"9Remove this use of "authorizeRequests"; it is deprecated.(¿Ğ±ûÿÿÿÿ

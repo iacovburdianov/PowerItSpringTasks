@@ -22,7 +22,7 @@ import java.util.List;
 public class CityController {
     private final CityService cityService;
     private final JwtService jwtService;
-    private  AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
